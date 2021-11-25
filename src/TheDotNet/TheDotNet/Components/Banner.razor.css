@@ -1,0 +1,10 @@
+﻿.banner-wrap {
+    background: url(../images/bg2.jpg);
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.banner {
+    width: 960px;
+    margin: 0 auto;
+}
