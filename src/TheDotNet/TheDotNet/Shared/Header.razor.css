@@ -19,89 +19,43 @@
     background: #000
 }
 
-.menu {
-    margin: 0 auto;
-    width: 100%;
-}
-
-.sf-menu {
-    background: url(../images/bg1.jpg) repeat-x center;
-    float: left;
+.menu-container {
+    text-align: center;
     height: 60px;
-    width: 100%;
+    background: #c55237;
 }
 
-    .sf-menu, .sf-menu * {
+    .menu-container ul {
+        display: inline-block;
+        font-family: 'Rokkitt', serif;
+        font-size: 19px;
+        color: #fff;
         margin: 0;
         padding: 0;
         list-style: none;
+        text-align: center;
     }
 
-        .sf-menu li {
+        .menu-container ul li {
+            display: block;
             position: relative;
-            white-space: nowrap;
-            transition: background .2s;
-        }
-
-        .sf-menu ul {
-            position: absolute;
-            display: none;
-            background: #c55237;
-            z-index: 100;
-            opacity: 10;
-        }
-
-            .sf-menu ul:hover {
-                background: #bb4e34;
-            }
-
-        .sf-menu > li {
             float: left;
-            list-style: none;
-            color: #533c47;
-        }
-
-        .sf-menu ul li {
-            line-height: 15px;
-        }
-
-        .sf-menu li:hover > ul,
-        .sf-menu li.sfHover > ul {
-            display: block;
-            position: absolute;
-        }
-
-        .sf-menu > li a {
-            font-family: 'Rokkitt', serif;
-            font-size: 19px;
-            color: #fff;
-            text-align: left;
-        }
-
-        .sf-menu a {
-            display: block;
-            position: relative;
-            font-family: 'Rokkitt', serif;
-            font-size: 19px;
-            color: #afb0a9;
             text-align: center;
-            padding: 20px;
-            text-decoration: none;
-            color: #13a;
-            text-transform: none;
         }
 
-            .sf-menu a:hover {
-                background: #c55237;
-                color: #fff;
-            }
+    .menu-container li ul {
+        display: none;
+    }
 
-            .sf-menu a.active {
-                background: #c55237;
-                color: #fff;
-            }
+    .menu-container ul li a {
+        display: block;
+        text-decoration: none;
+        color: #ffffff;
+        padding: 20px;
+        white-space: nowrap;
+    }
 
-        .sf-menu ul ul {
-            top: 0;
-            left: 100%;
+        .menu-container ul li a:hover {
+            background: #b34a30;
+            color: #fff;
         }
