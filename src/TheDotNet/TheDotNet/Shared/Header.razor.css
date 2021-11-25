@@ -1,5 +1,4 @@
 ﻿.header-wrap {
-    width: 960px;
     margin: 0px auto 50px auto;
 }
 
@@ -22,7 +21,7 @@
 
 .menu {
     margin: 0 auto;
-    width: 700px;
+    width: 100%;
 }
 
     .menu img {
@@ -33,6 +32,7 @@
     background: url(../images/bg1.jpg) repeat-x center;
     float: left;
     height: 60px;
+    width: 100%;
 }
 
     .sf-menu, .sf-menu * {
