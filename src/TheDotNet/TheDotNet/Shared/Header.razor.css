@@ -1,0 +1,31 @@
+﻿.header-wrap {
+    width: 960px;
+    margin: 0px auto 50px auto;
+}
+
+.logo {
+    margin: 0 auto;
+    width: 300px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+    .logo h1 {
+        font-size: 54px;
+        color: #446396;
+        text-align: center;
+    }
+
+.menu-wrap {
+    height: auto;
+    background: #000
+}
+
+.menu {
+    margin: 0 auto;
+    width: 700px;
+}
+
+    .menu img {
+        float: left;
+    }
