@@ -23,6 +23,8 @@ namespace TheDotNet.Store.Blogs.Effects
         {
             _logger.LogInformation("Preparing to make a request");
             var posts = await _getRecentPostsQuery.HandleAsync(new GetRecentPostsQuery());
+
+            dispatcher.Dispatch(new SetBlogPostsAction(posts));
         }
     }
 }

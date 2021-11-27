@@ -20,6 +20,7 @@ namespace TDN.External.Blogs.Queries.GetRecentPosts
             _context = context;
         }
 
+        // TODO: Fix this method and make it testaable
         public async Task<IList<Post>> HandleAsync(GetRecentPostsQuery query, CancellationToken cancellationToken = default)
         {
             IList<Post> posts = new List<Post>();

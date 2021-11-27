@@ -1,6 +1,14 @@
-﻿namespace TheDotNet.Store.Blogs
+﻿using TDN.Core.Models;
+
+namespace TheDotNet.Store.Blogs
 {
-    public class BlogsState
+    public record BlogsState
     {
+        public BlogsState()
+        {
+            Posts = new List<Post>();
+        }
+
+        public IList<Post> Posts { get; init; }
     }
 }
