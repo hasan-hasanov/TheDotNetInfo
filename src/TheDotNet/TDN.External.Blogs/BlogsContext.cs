@@ -2,9 +2,16 @@
 {
     public class BlogsContext
     {
-        public BlogsContext()
-        {
+        private readonly IHttpClientFactory _httpClientFactory;
 
+        public BlogsContext(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
+        public HttpClient CreateClient(string blogUrl)
+        {
+            return _httpClientFactory.CreateClient(blogUrl);
         }
     }
 }
