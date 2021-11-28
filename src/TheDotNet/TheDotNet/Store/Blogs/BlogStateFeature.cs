@@ -1,4 +1,5 @@
 ﻿using Fluxor;
+using TDN.Core.Models;
 
 namespace TheDotNet.Store.Blogs
 {
@@ -10,7 +11,8 @@ namespace TheDotNet.Store.Blogs
         {
             return new BlogsState
             {
-
+                Blogs = new List<BlogInfo>(),
+                Posts = new List<Post>()
             };
         }
     }

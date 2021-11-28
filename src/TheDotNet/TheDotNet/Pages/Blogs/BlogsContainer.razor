@@ -1,0 +1,12 @@
+﻿@page "/blogs"
+
+<Title Content="Blogs" />
+
+<div class="portfolio-content">
+    <ul>
+        @foreach (var blog in BlogsState.Value.Blogs)
+        {
+            <Blog Author=@blog.Author Url=@blog.Url Title=@blog.Title />
+        }
+    </ul>
+</div>

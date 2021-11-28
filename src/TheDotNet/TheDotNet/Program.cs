@@ -10,6 +10,7 @@ using TDN.External.Blogs;
 using TDN.External.Blogs.Parsers.PostParsers;
 using TDN.External.Blogs.Parsers.PostParsers.Attributes;
 using TDN.External.Blogs.Parsers.PostParsers.Attributes.Abstract;
+using TDN.External.Blogs.Queries.GetBlogs;
 using TDN.External.Blogs.Queries.GetRecentPosts;
 using TDN.External.LocalStorage;
 using TDN.External.LocalStorage.Commands.SavePostsToStorage;
@@ -30,6 +31,7 @@ builder.Configuration.AddJsonStream(stream);
 
 builder.Services.AddSingleton<IAppSettings>(provider => new AppSettings(builder.Configuration));
 builder.Services.AddScoped<IQueryHandler<GetRecentPostsQuery, IList<Post>>, GetRecentPostsQueryHandler>();
+builder.Services.AddScoped<IQueryHandler<GetBlogsQuery, IList<BlogInfo>>, GetBlogsQueryHandler>();
 builder.Services.AddScoped<IQueryHandler<GetPostsFromStorageQuery, (IList<Post>, DateTime)>, GetPostsFromStorageQueryHandler>();
 
 builder.Services.AddScoped<ICommandHandler<SavePostsToStorageCommand>, SavePostsToStorageCommandHandler>();
