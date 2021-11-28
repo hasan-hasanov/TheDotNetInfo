@@ -4,10 +4,11 @@
 }
 
 .copyright {
-    width: 960px;
+    width: 100%;
     margin: 0 auto;
     padding-top: 40px;
     padding-bottom: 20px;
+    text-align: center;
 }
 
     .copyright .content p {
