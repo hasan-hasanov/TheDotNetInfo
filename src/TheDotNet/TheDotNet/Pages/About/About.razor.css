@@ -1,6 +1,7 @@
 ﻿.page {
     width: 90%;
     overflow: hidden;
+    margin-bottom: 70px;
 }
 
 .panel {
