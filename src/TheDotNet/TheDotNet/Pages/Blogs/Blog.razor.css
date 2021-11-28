@@ -1,8 +1,5 @@
 ﻿.box {
-    margin-bottom: 30px;
-    float: left;
-    margin-right: 30px;
-    width: 30%;
+    margin-bottom: 60px;
 }
 
 .wrap {
@@ -13,6 +10,7 @@
     overflow: hidden;
     background: url(../images/bg3.jpg);
     padding: 30px;
+    height: 100%;
 }
 
 .title {
