@@ -23,6 +23,7 @@ using var response = await http.GetAsync("appSettings.json");
 using var stream = await response.Content.ReadAsStreamAsync();
 
 builder.Configuration.AddJsonStream(stream);
+
 builder.Services.AddSingleton<IAppSettings>(provider => new AppSettings(builder.Configuration));
 builder.Services.AddScoped<IQueryHandler<GetRecentPostsQuery, IList<Post>>, GetRecentPostsQueryHandler>();
 

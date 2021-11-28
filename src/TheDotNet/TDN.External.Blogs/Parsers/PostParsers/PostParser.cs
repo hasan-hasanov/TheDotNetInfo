@@ -16,14 +16,14 @@ namespace TDN.External.Blogs.Parsers.PostParsers
         private readonly IAttributeParser<LinkParser> _linkParser;
         private readonly IAttributeParser<DescriptionParser> _descriptionParser;
         private readonly IAttributeParser<PublishedParser> _publishedParser;
-        private readonly IAttributeParser<TitleParser> _authorParser;
+        private readonly IAttributeParser<AuthorParser> _authorParser;
 
         public PostParser(
             IAttributeParser<TitleParser> titleParser,
             IAttributeParser<LinkParser> linkParser,
             IAttributeParser<DescriptionParser> descriptionParser,
             IAttributeParser<PublishedParser> publishedParser,
-            IAttributeParser<TitleParser> authorParser)
+            IAttributeParser<AuthorParser> authorParser)
             : this(
                   titleParser,
                   linkParser,
@@ -39,7 +39,7 @@ namespace TDN.External.Blogs.Parsers.PostParsers
             IAttributeParser<LinkParser> linkParser,
             IAttributeParser<DescriptionParser> descriptionParser,
             IAttributeParser<PublishedParser> publishedParser,
-            IAttributeParser<TitleParser> authorParser,
+            IAttributeParser<AuthorParser> authorParser,
             Func<XmlReader, XmlFeedReader> factory)
         {
             _titleParser = titleParser;
@@ -51,7 +51,7 @@ namespace TDN.External.Blogs.Parsers.PostParsers
             _feedFactory = factory;
         }
 
-        public async Task<IList<Post>> ParseAsync(XmlReader xmlReader)
+        public async Task<IList<Post>> ParseAsync(XmlReader xmlReader, BlogInfo blog)
         {
             XmlFeedReader feedReader = _feedFactory.Invoke(xmlReader);
             IList<Post> posts = new List<Post>();
@@ -65,16 +65,19 @@ namespace TDN.External.Blogs.Parsers.PostParsers
                     string link = _linkParser.Parse(item);
                     string description = _descriptionParser.Parse(item);
                     string published = _publishedParser.Parse(item);
-                    string author = _authorParser.Parse(item);
+                    string author = _authorParser.Parse(item, blog.Author);
 
-                    posts.Add(new Post()
+                    if (!string.IsNullOrEmpty(title) && published != default)
                     {
-                        Title = title,
-                        Author = author,
-                        Link = link,
-                        Description = description,
-                        Published = DateTimeOffset.Parse(published)
-                    });
+                        posts.Add(new Post()
+                        {
+                            Title = title,
+                            Author = author,
+                            Link = link,
+                            Description = description,
+                            Published = DateTimeOffset.Parse(published)
+                        });
+                    }
                 }
             }
 

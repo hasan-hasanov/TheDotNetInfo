@@ -5,5 +5,7 @@ namespace TDN.Core
     public interface IAppSettings
     {
         public BlogInfo[] Blogs { get; }
+
+        public int PostCount { get; }
     }
 }

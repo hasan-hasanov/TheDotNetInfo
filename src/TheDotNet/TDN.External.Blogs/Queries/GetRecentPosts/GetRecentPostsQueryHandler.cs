@@ -54,17 +54,14 @@ namespace TDN.External.Blogs.Queries.GetRecentPosts
                 using Stream stream = await httpClient.GetStreamAsync(string.Empty, cts);
                 using XmlReader xmlReader = _xmlReaderFactory(stream);
 
-                var blogPosts = await _postParser.ParseAsync(xmlReader);
+                var blogPosts = await _postParser.ParseAsync(xmlReader, blog);
                 foreach (var blogPost in blogPosts)
                 {
-                    if (blogPost.Published > yesterday)
-                    {
-                        posts.Add(blogPost);
-                    }
+                    posts.Add(blogPost);
                 }
             });
 
-            return posts;
+            return posts.OrderByDescending(p => p.Published).Take(_appSettings.PostCount).ToList();
         }
     }
 }

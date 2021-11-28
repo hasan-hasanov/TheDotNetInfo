@@ -7,7 +7,7 @@ namespace TDN.External.Blogs.Parsers.PostParsers.Attributes
     {
         public string Parse(ISyndicationItem item, params string[] args)
         {
-            string author = string.Empty;
+            string author = args[0];
             ISyndicationPerson? person = item.Contributors.FirstOrDefault(x => x.RelationshipType == "author");
             if (person != null)
             {
