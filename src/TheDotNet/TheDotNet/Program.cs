@@ -30,6 +30,7 @@ foreach (var blog in blogs)
     builder.Services.AddHttpClient(url.Host, httpClient =>
     {
         httpClient.BaseAddress = url;
+        httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("TheDotNetInfo");
     });
 }
 

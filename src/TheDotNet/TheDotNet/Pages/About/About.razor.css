@@ -1,1 +1,21 @@
-﻿
+﻿.page {
+    width: 960px;
+    overflow: hidden;
+    margin: 40px auto;
+}
+
+.panel {
+    overflow: hidden;
+    background: url(../images/bg3.jpg);
+    padding: 30px;
+}
+
+.title {
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+.page .content p {
+    padding-bottom: 20px;
+    font-size: 18px;
+}
