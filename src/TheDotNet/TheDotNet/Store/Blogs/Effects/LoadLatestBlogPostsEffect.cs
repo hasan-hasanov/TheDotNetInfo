@@ -7,6 +7,7 @@ using TDN.External.Blogs.Queries.GetRecentPosts;
 using TDN.External.LocalStorage.Commands.SavePostsToStorage;
 using TDN.External.LocalStorage.Queries.GetPostsFromStorage;
 using TheDotNet.Store.Blogs.Actions;
+using TheDotNet.Store.Dom.Actions;
 
 namespace TheDotNet.Store.Blogs.Effects
 {
@@ -36,6 +37,7 @@ namespace TheDotNet.Store.Blogs.Effects
         {
             _logger.LogInformation("Checking if the cache is valid");
 
+            dispatcher.Dispatch(new SetLoadingAction(true));
             (IList<Post> posts, DateTime lastUpdate) = await _getPostsFromStorageQuery.HandleAsync(new GetPostsFromStorageQuery());
 
             if (posts == null || DateTime.Now.AddHours(-_appSettings.CacheDurationInHours) > lastUpdate)
@@ -47,6 +49,8 @@ namespace TheDotNet.Store.Blogs.Effects
                 await _savePostsToStorageCommand.HandleAsync(new SavePostsToStorageCommand(posts));
                 _logger.LogInformation("Updating cache with new posts");
             }
+
+            dispatcher.Dispatch(new SetLoadingAction(false));
 
             dispatcher.Dispatch(new SetBlogPostsAction(posts));
         }

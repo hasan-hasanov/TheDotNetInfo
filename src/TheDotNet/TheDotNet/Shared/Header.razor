@@ -1,6 +1,11 @@
 ﻿@inherits FluxorComponent
 
 <div class="header-wrap">
+    @if (DomState.Value.IsLoading)
+    {
+        <Loader />
+    }
+
     <div class="logo">
         <h1>The .NET Info</h1>
     </div>

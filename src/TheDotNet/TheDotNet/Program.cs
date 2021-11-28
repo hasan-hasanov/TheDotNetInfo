@@ -45,7 +45,6 @@ builder.Services.AddScoped<IPostParser, PostParser>();
 builder.Services.AddScoped<HttpContext>();
 builder.Services.AddScoped<LocalStorageContext>();
 
-
 var blogs = builder.Configuration.GetSection("blogs").Get<BlogInfo[]>();
 foreach (var blog in blogs)
 {
