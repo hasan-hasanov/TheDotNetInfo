@@ -15,20 +15,17 @@ namespace TDN.External.Blogs.Parsers.PostParsers
 
         private readonly IAttributeParser<TitleParser> _titleParser;
         private readonly IAttributeParser<LinkParser> _linkParser;
-        private readonly IAttributeParser<DescriptionParser> _descriptionParser;
         private readonly IAttributeParser<PublishedParser> _publishedParser;
         private readonly IAttributeParser<AuthorParser> _authorParser;
 
         public PostParser(
             IAttributeParser<TitleParser> titleParser,
             IAttributeParser<LinkParser> linkParser,
-            IAttributeParser<DescriptionParser> descriptionParser,
             IAttributeParser<PublishedParser> publishedParser,
             IAttributeParser<AuthorParser> authorParser)
             : this(
                   titleParser,
                   linkParser,
-                  descriptionParser,
                   publishedParser,
                   authorParser,
                   xml => xml.Name == "feed" ? new AtomFeedReader(xml, new DiscoverAtomParser()) : new RssFeedReader(xml))
@@ -38,14 +35,12 @@ namespace TDN.External.Blogs.Parsers.PostParsers
         public PostParser(
             IAttributeParser<TitleParser> titleParser,
             IAttributeParser<LinkParser> linkParser,
-            IAttributeParser<DescriptionParser> descriptionParser,
             IAttributeParser<PublishedParser> publishedParser,
             IAttributeParser<AuthorParser> authorParser,
             Func<XmlReader, XmlFeedReader> factory)
         {
             _titleParser = titleParser;
             _linkParser = linkParser;
-            _descriptionParser = descriptionParser;
             _publishedParser = publishedParser;
             _authorParser = authorParser;
 
@@ -64,7 +59,6 @@ namespace TDN.External.Blogs.Parsers.PostParsers
                     var item = await feedReader.ReadItem();
                     string title = _titleParser.Parse(item);
                     string link = _linkParser.Parse(item);
-                    string description = _descriptionParser.Parse(item);
                     string published = _publishedParser.Parse(item);
                     string author = _authorParser.Parse(item, blog.Author);
 
@@ -75,7 +69,6 @@ namespace TDN.External.Blogs.Parsers.PostParsers
                             Title = title,
                             Author = author,
                             Link = link,
-                            Description = description,
                             Published = DateTimeOffset.Parse(published)
                         });
                     }

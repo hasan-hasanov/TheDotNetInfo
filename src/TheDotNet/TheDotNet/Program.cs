@@ -35,7 +35,6 @@ builder.Services.AddScoped<IQueryHandler<GetPostsFromStorageQuery, (IList<Post>,
 builder.Services.AddScoped<ICommandHandler<SavePostsToStorageCommand>, SavePostsToStorageCommandHandler>();
 
 builder.Services.AddScoped<IAttributeParser<AuthorParser>, AuthorParser>();
-builder.Services.AddScoped<IAttributeParser<DescriptionParser>, DescriptionParser>();
 builder.Services.AddScoped<IAttributeParser<LinkParser>, LinkParser>();
 builder.Services.AddScoped<IAttributeParser<PublishedParser>, PublishedParser>();
 builder.Services.AddScoped<IAttributeParser<TitleParser>, TitleParser>();
