@@ -51,8 +51,11 @@ namespace TDN.External.Blogs.Queries.GetRecentPosts
                 var url = new Uri(blog.Url);
                 var httpClient = _context.CreateClient(url.Host);
 
+                string content = await httpClient.GetStringAsync(string.Empty, cts);
+
                 using Stream stream = await httpClient.GetStreamAsync(string.Empty, cts);
                 using XmlReader xmlReader = _xmlReaderFactory(stream);
+                xmlReader.MoveToContent();
 
                 var blogPosts = await _postParser.ParseAsync(xmlReader, blog);
                 foreach (var blogPost in blogPosts)

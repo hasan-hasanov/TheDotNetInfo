@@ -5,6 +5,7 @@ using System.Xml;
 using TDN.Core.Models;
 using TDN.External.Blogs.Parsers.PostParsers.Attributes;
 using TDN.External.Blogs.Parsers.PostParsers.Attributes.Abstract;
+using TDN.External.Blogs.Parsers.SyndicationParsers;
 
 namespace TDN.External.Blogs.Parsers.PostParsers
 {
@@ -30,7 +31,7 @@ namespace TDN.External.Blogs.Parsers.PostParsers
                   descriptionParser,
                   publishedParser,
                   authorParser,
-                  xml => xml.Name == "feed" ? new AtomFeedReader(xml) : new RssFeedReader(xml))
+                  xml => xml.Name == "feed" ? new AtomFeedReader(xml, new DiscoverAtomParser()) : new RssFeedReader(xml))
         {
         }
 
