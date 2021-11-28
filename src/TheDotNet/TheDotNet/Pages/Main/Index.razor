@@ -8,7 +8,7 @@
     @foreach (var post in BlogsState.Value.Posts)
     {
         <Post Author=@post.Author
-          Description=@post.Description
+          Published=@post.Published
           Title=@post.Title
           Url=@post.Link />
     }

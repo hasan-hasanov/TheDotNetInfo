@@ -8,7 +8,7 @@ namespace TheDotNet.Pages.Main
 
         [Parameter] public string Url { get; set; }
 
-        [Parameter] public string Description { get; set; }
+        [Parameter] public DateTimeOffset Published { get; set; }
 
         [Parameter] public string Author { get; set; }
     }
