@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TDN.Core\TDN.Core.csproj" />
     <ProjectReference Include="..\TDN.External.Blogs\TDN.External.Blogs.csproj" />
+    <ProjectReference Include="..\TDN.External.LocalStorage\TDN.External.LocalStorage.csproj" />
   </ItemGroup>
 
   <ItemGroup>

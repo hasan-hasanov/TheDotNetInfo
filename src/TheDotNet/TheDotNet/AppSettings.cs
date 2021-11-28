@@ -17,5 +17,7 @@ namespace TheDotNet
         public BlogInfo[] Blogs => _blogsSection.Get<BlogInfo[]>();
 
         public int PostCount => int.Parse(_postsSection["count"]);
+
+        public int CacheDurationInHours => int.Parse(_postsSection["cacheDurationInHours"]);
     }
 }

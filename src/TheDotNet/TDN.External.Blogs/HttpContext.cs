@@ -1,10 +1,10 @@
 ﻿namespace TDN.External.Blogs
 {
-    public class BlogsContext
+    public class HttpContext
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public BlogsContext(IHttpClientFactory httpClientFactory)
+        public HttpContext(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

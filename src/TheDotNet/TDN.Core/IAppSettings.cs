@@ -7,5 +7,7 @@ namespace TDN.Core
         public BlogInfo[] Blogs { get; }
 
         public int PostCount { get; }
+
+        public int CacheDurationInHours { get; }
     }
 }

@@ -9,14 +9,14 @@ namespace TDN.External.Blogs.Queries.GetRecentPosts
     public class GetRecentPostsQueryHandler : IQueryHandler<GetRecentPostsQuery, IList<Post>>
     {
         private readonly IAppSettings _appSettings;
-        private readonly BlogsContext _context;
+        private readonly HttpContext _context;
         private readonly IPostParser _postParser;
         private readonly Func<DateTimeOffset> _tresholdDate;
         private readonly Func<Stream, XmlReader> _xmlReaderFactory;
 
         public GetRecentPostsQueryHandler(
             IAppSettings appSettings,
-            BlogsContext context,
+            HttpContext context,
             IPostParser postParser)
             : this(
                   appSettings,
@@ -29,7 +29,7 @@ namespace TDN.External.Blogs.Queries.GetRecentPosts
 
         public GetRecentPostsQueryHandler(
             IAppSettings appSettings,
-            BlogsContext context,
+            HttpContext context,
             IPostParser postParser,
             Func<DateTimeOffset> yesterday,
             Func<Stream, XmlReader> xmlReaderFactory)
