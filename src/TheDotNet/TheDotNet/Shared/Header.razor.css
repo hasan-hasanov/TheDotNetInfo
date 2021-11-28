@@ -59,3 +59,9 @@
             background: #b34a30;
             color: #fff;
         }
+
+@media only screen and (max-width: 1000px) {
+    .header-wrap {
+        margin-bottom: 40px;
+    }
+}

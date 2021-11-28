@@ -9,3 +9,9 @@
     width: 960px;
     margin: 0 auto;
 }
+
+@media only screen and (max-width: 1000px) {
+    .banner-wrap {
+        display: none;
+    }
+}
