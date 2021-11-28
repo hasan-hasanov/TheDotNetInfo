@@ -5,6 +5,9 @@ using TDN.Core;
 using TDN.Core.Models;
 using TDN.Core.Queries;
 using TDN.External.Blogs;
+using TDN.External.Blogs.Parsers.PostParsers;
+using TDN.External.Blogs.Parsers.PostParsers.Attributes;
+using TDN.External.Blogs.Parsers.PostParsers.Attributes.Abstract;
 using TDN.External.Blogs.Queries.GetRecentPosts;
 using TheDotNet;
 
@@ -22,6 +25,15 @@ using var stream = await response.Content.ReadAsStreamAsync();
 builder.Configuration.AddJsonStream(stream);
 builder.Services.AddSingleton<IAppSettings>(provider => new AppSettings(builder.Configuration));
 builder.Services.AddScoped<IQueryHandler<GetRecentPostsQuery, IList<Post>>, GetRecentPostsQueryHandler>();
+
+builder.Services.AddScoped<IAttributeParser<AuthorParser>, AuthorParser>();
+builder.Services.AddScoped<IAttributeParser<DescriptionParser>, DescriptionParser>();
+builder.Services.AddScoped<IAttributeParser<LinkParser>, LinkParser>();
+builder.Services.AddScoped<IAttributeParser<PublishedParser>, PublishedParser>();
+builder.Services.AddScoped<IAttributeParser<TitleParser>, TitleParser>();
+
+builder.Services.AddScoped<IPostParser, PostParser>();
+
 
 var blogs = builder.Configuration.GetSection("blogs").Get<BlogInfo[]>();
 foreach (var blog in blogs)

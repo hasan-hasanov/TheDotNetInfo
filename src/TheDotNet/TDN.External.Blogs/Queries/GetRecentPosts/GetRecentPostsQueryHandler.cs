@@ -1,9 +1,8 @@
-﻿using Microsoft.SyndicationFeed;
-using Microsoft.SyndicationFeed.Rss;
-using System.Xml;
+﻿using System.Xml;
 using TDN.Core;
 using TDN.Core.Models;
 using TDN.Core.Queries;
+using TDN.External.Blogs.Parsers.PostParsers.Attributes.Abstract;
 
 namespace TDN.External.Blogs.Queries.GetRecentPosts
 {
@@ -11,47 +10,56 @@ namespace TDN.External.Blogs.Queries.GetRecentPosts
     {
         private readonly IAppSettings _appSettings;
         private readonly BlogsContext _context;
+        private readonly IPostParser _postParser;
+        private readonly Func<DateTimeOffset> _tresholdDate;
+        private readonly Func<Stream, XmlReader> _xmlReaderFactory;
 
         public GetRecentPostsQueryHandler(
             IAppSettings appSettings,
-            BlogsContext context)
+            BlogsContext context,
+            IPostParser postParser)
+            : this(
+                  appSettings,
+                  context,
+                  postParser,
+                  () => new DateTimeOffset(DateTime.Now.AddDays(-2)),
+                  rssStream => XmlReader.Create(rssStream, new XmlReaderSettings { Async = true }))
+        {
+        }
+
+        public GetRecentPostsQueryHandler(
+            IAppSettings appSettings,
+            BlogsContext context,
+            IPostParser postParser,
+            Func<DateTimeOffset> yesterday,
+            Func<Stream, XmlReader> xmlReaderFactory)
         {
             _appSettings = appSettings;
             _context = context;
+            _postParser = postParser;
+            _tresholdDate = yesterday;
+            _xmlReaderFactory = xmlReaderFactory;
         }
 
-        // TODO: Fix this method and make it testaable
         public async Task<IList<Post>> HandleAsync(GetRecentPostsQuery query, CancellationToken cancellationToken = default)
         {
             IList<Post> posts = new List<Post>();
+            DateTimeOffset yesterday = _tresholdDate.Invoke();
+
             await Parallel.ForEachAsync(_appSettings.Blogs, async (blog, cts) =>
             {
                 var url = new Uri(blog.Url);
                 var httpClient = _context.CreateClient(url.Host);
 
                 using Stream stream = await httpClient.GetStreamAsync(string.Empty, cts);
-                using XmlReader xmlReader = XmlReader.Create(stream, new XmlReaderSettings
-                {
-                    Async = true
-                });
+                using XmlReader xmlReader = _xmlReaderFactory(stream);
 
-                var feedReader = new RssFeedReader(xmlReader);
-                while (await feedReader.Read())
+                var blogPosts = await _postParser.ParseAsync(xmlReader);
+                foreach (var blogPost in blogPosts)
                 {
-                    if (feedReader.ElementType == SyndicationElementType.Item)
+                    if (blogPost.Published > yesterday)
                     {
-                        var item = await feedReader.ReadItem();
-                        posts.Add(new Post()
-                        {
-                            // TODO: Get the author from the feed
-                            Author = blog.Author,
-                            Description = item.Description,
-                            Published = item.Published != default ? item.Published : item.LastUpdated,
-                            Title = item.Title,
-
-                            // TODO: Fix this url and make it dynamic
-                            Url = string.Empty
-                        });
+                        posts.Add(blogPost);
                     }
                 }
             });
