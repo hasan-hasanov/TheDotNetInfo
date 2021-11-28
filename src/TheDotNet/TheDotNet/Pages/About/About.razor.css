@@ -1,18 +1,12 @@
 ﻿.page {
     width: 90%;
     overflow: hidden;
-    margin: 40px auto;
 }
 
 .panel {
     overflow: hidden;
     background: url(../images/bg3.jpg);
     padding: 30px;
-}
-
-.title {
-    margin-bottom: 20px;
-    margin-top: 15px;
 }
 
 .page .content p {
