@@ -76,12 +76,6 @@ a {
     overflow: hidden;
 }
 
-.box {
-    width: 460px;
-    float: left;
-    margin-bottom: 40px;
-}
-
 .button {
     background: url(../images/button.png) no-repeat;
     width: 80px;

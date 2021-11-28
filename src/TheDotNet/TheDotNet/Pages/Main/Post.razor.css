@@ -1,0 +1,22 @@
+﻿.box {
+    margin-bottom: 40px;
+}
+
+.wrap {
+    overflow: hidden;
+}
+
+.panel {
+    overflow: hidden;
+    background: url(../images/bg3.jpg);
+    padding: 30px;
+}
+
+.title {
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+.content p {
+    padding-bottom: 10px;
+}

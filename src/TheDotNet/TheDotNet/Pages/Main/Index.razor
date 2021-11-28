@@ -4,19 +4,12 @@
 
 <Banner />
 
-@foreach (var post in BlogsState.Value.Posts)
-{
-    <span>@post.Author</span>
-    <br />
-    <span>@post.Description</span>
-    <br />
-    <span>@post.Published</span>
-    <br />
-    <span>@post.Title</span>
-    <br />
-    <span>@post.Url</span>
-    <br />
-
-    <br />
-    <br />
-}
+<div class="page-wrap">
+    @foreach (var post in BlogsState.Value.Posts)
+    {
+        <Post Author=@post.Author
+          Description=@post.Description
+          Title=@post.Title
+          Url=@post.Url />
+    }
+</div>
