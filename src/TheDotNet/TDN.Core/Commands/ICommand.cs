@@ -1,6 +1,4 @@
 ﻿namespace TDN.Core.Commands
 {
-    public interface ICommand
-    {
-    }
+    public interface ICommand { }
 }

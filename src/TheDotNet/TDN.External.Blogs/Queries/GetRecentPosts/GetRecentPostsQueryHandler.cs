@@ -46,21 +46,28 @@ namespace TDN.External.Blogs.Queries.GetRecentPosts
             IList<Post> posts = new List<Post>();
             DateTimeOffset yesterday = _tresholdDate.Invoke();
 
-            await Parallel.ForEachAsync(_appSettings.Blogs, async (blog, cts) =>
+            await Parallel.ForEachAsync(_appSettings.Blogs, cancellationToken, async (blog, cts) =>
             {
-                var url = new Uri(blog.Url);
-                var httpClient = _context.CreateClient(url.Host);
-
-                string content = await httpClient.GetStringAsync(string.Empty, cts);
-
-                using Stream stream = await httpClient.GetStreamAsync(string.Empty, cts);
-                using XmlReader xmlReader = _xmlReaderFactory(stream);
-                xmlReader.MoveToContent();
-
-                var blogPosts = await _postParser.ParseAsync(xmlReader, blog);
-                foreach (var blogPost in blogPosts)
+                try
                 {
-                    posts.Add(blogPost);
+                    var url = new Uri(blog.Url);
+                    var httpClient = _context.CreateClient(url.Host);
+
+                    string content = await httpClient.GetStringAsync(string.Empty, cts);
+
+                    using Stream stream = await httpClient.GetStreamAsync(string.Empty, cts);
+                    using XmlReader xmlReader = _xmlReaderFactory(stream);
+                    xmlReader.MoveToContent();
+
+                    var blogPosts = await _postParser.ParseAsync(xmlReader, blog);
+                    foreach (var blogPost in blogPosts)
+                    {
+                        posts.Add(blogPost);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine(ex.ToString());
                 }
             });
 
