@@ -2,6 +2,8 @@
 
 Simple client-side application that displays .NET news titles from other blogs. The Dot Net Info does not show any content from the original author. It displays only title, published date and author name. Since it is only a client-side app if the author has CORS policy it set up it could not be displayed.
 
+### This application is heavily inspired by [discoverdot.net](https://discoverdot.net/)
+
 ## Installation 
 
 ### Dotnet
@@ -10,6 +12,12 @@ The only prerequisite is having .NET 6 SDK.
 
 1. Clone or download the project
 2. Run
+
+### Built With
+
+* Blazor Web Assembly
+* .NET 6
+* [Fluxor](https://github.com/mrpmorris/Fluxor)
 
 ### Configs
 
